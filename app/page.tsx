@@ -1,12 +1,14 @@
 "use client"
 
+import redirectIfAuthenticated from "@/app/hoc/redirectIfAuthenticated";
+
 import MainHeading from "@/app/components/Heading";
 import HeaderBanner from "@/app/components/HeaderBanner";
 import SubHeading from "@/app/components/SubHeading";
 
 import bannerImage from '@/app/assets/images/pexels-karolina-grabowska-5650023.jpg';
 
-export default function Home() {
+function Home() {
     return (
         <div id="page_Home">
             <HeaderBanner imageUrl={bannerImage} />
@@ -20,3 +22,5 @@ export default function Home() {
         </div>
     )
 }
+
+export default redirectIfAuthenticated(Home)

@@ -1,9 +1,13 @@
+"use client"
+
+import Link from "next/link";
+
 import MainHeading from "@/app/components/Heading";
 import SubHeading from "@/app/components/SubHeading";
 import HeaderBanner from "@/app/components/HeaderBanner";
 import RegisterForm from "./components/RegisterForm";
 
-import Link from "next/link";
+import redirectIfAuthenticated from "@/app/hoc/redirectIfAuthenticated";
 
 import bannerImage from '@/app/assets/images/pexels-cottonbro-studio-5076516.jpg';
 
@@ -28,4 +32,4 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage;
+export default redirectIfAuthenticated(RegisterPage);

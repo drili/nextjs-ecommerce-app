@@ -1,9 +1,13 @@
+"use client"
+
+import Link from "next/link";
+
 import MainHeading from "@/app/components/Heading";
 import SubHeading from "@/app/components/SubHeading";
 import HeaderBanner from "@/app/components/HeaderBanner";
 import LoginForm from "./components/LoginForm";
 
-import Link from "next/link";
+import redirectIfAuthenticated from "@/app/hoc/redirectIfAuthenticated";
 
 import bannerImage from '@/app/assets/images/pexels-anete-lusina-6331230.jpg';
 
@@ -28,4 +32,4 @@ const LoginPage = () => {
     );
 }
 
-export default LoginPage;
+export default redirectIfAuthenticated(LoginPage);
