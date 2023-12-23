@@ -40,13 +40,18 @@ function NavbarComponent() {
         setUser(null)
 
         localStorage.removeItem('token');
+        localStorage.removeItem("userData")
         // router.push("/")
     }
 
     return (
         <Navbar fluid className='px-0 py-4 pl-0 pr-0 lg:pl-0 lg:pr-0 border-b border-gray-100 mb-5'>
             <Link href="/">
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">NextJS Ecommerce App</span>
+                {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">NextJS Ecommerce App</span> */}
+                <Dropdown label="Select Store">
+                    <Dropdown.Item>Store 1</Dropdown.Item>
+                    <Dropdown.Item>Store 2</Dropdown.Item>
+                </Dropdown>
             </Link>
             <div className="flex md:order-2">
                 {user ? (
@@ -56,7 +61,7 @@ function NavbarComponent() {
                                 arrowIcon={false}
                                 inline
                                 label={
-                                    <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                                    <Avatar alt="User settings" img="" rounded />
                                 }
                             >
                                 <Dropdown.Header>
@@ -64,6 +69,8 @@ function NavbarComponent() {
                                     <span className="block truncate text-sm font-medium">{user.email}</span>
                                 </Dropdown.Header>
                                 <Dropdown.Item>User Settings</Dropdown.Item>
+                                <Dropdown.Item>Subscription</Dropdown.Item>
+                                <Dropdown.Item>Contact Support</Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item onClick={handleLogout}>
                                     Logout
@@ -78,14 +85,24 @@ function NavbarComponent() {
                 )}
                 <Navbar.Toggle />
             </div>
-            <Navbar.Collapse>
-                <NavbarLink link='/'>Home</NavbarLink>
-                <NavbarLink link="#">About</NavbarLink>
-                <NavbarLink link="#">Services</NavbarLink>
-                <NavbarLink link="#">Pricing</NavbarLink>
-                <NavbarLink link="#">Contact</NavbarLink>
-            </Navbar.Collapse>
-        </Navbar>
+            {user ? (
+                <Navbar.Collapse>
+                    <NavbarLink link='#'>Store Settings</NavbarLink>
+                    <NavbarLink link='#'>Collections</NavbarLink>
+                    <NavbarLink link="#">Products</NavbarLink>
+                    <NavbarLink link="#">Product Properties</NavbarLink>
+                </Navbar.Collapse>
+            ) : (
+                <Navbar.Collapse>
+                    <NavbarLink link='/'>Home</NavbarLink>
+                    <NavbarLink link="#">About</NavbarLink>
+                    <NavbarLink link="#">Services</NavbarLink>
+                    <NavbarLink link="#">Pricing</NavbarLink>
+                    <NavbarLink link="#">Contact</NavbarLink>
+                </Navbar.Collapse>
+            )}
+
+        </Navbar >
     );
 }
 
