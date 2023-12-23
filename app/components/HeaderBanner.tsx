@@ -3,14 +3,22 @@
 import Image, { StaticImageData } from "next/image";
 
 interface HeaderBannerProps {
-    imageUrl: string | StaticImageData
+    imageUrl: string | StaticImageData,
+    imageSize?: "small" | "large"
 }
 
 const HeaderBanner: React.FC<HeaderBannerProps> = ({
-    imageUrl
+    imageUrl,
+    imageSize
 }) => {
+    const imageSizeHeight = imageSize === "small" ? "250px" : "500px"
+
     return (  
-        <div id="component_HeaderBanner" className="relative w-full h-[500px] overflow-hidden mb-10 rounded-md">
+        <div 
+            id="component_HeaderBanner" 
+            className="relative w-full overflow-hidden mb-10 rounded-md"
+            style={{height: imageSizeHeight }}
+        >
             <Image 
                 src={imageUrl}
                 alt=""
