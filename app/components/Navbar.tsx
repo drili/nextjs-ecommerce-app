@@ -46,13 +46,11 @@ function NavbarComponent() {
 
     return (
         <Navbar fluid className='px-0 py-4 pl-0 pr-0 lg:pl-0 lg:pr-0 border-b border-gray-100 mb-5'>
-            <Link href="/">
-                {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">NextJS Ecommerce App</span> */}
-                <Dropdown label="Select Store">
-                    <Dropdown.Item>Store 1</Dropdown.Item>
-                    <Dropdown.Item>Store 2</Dropdown.Item>
-                </Dropdown>
-            </Link>
+            <Dropdown label="Store: Store 1" color='gray' placement="bottom">
+                <Dropdown.Item>Store 1</Dropdown.Item>
+                <Dropdown.Item>Store 2</Dropdown.Item>
+            </Dropdown>
+
             <div className="flex md:order-2">
                 {user ? (
                     <div>
