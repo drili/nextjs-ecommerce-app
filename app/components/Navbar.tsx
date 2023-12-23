@@ -4,6 +4,8 @@ import { Button, Navbar } from 'flowbite-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { useUser } from "@/app/context/UserContex";
+
 interface NavbarLinkProps {
     link: string;
     children: React.ReactNode;
@@ -23,6 +25,7 @@ const NavbarLink: React.FC<NavbarLinkProps> = ({
 }
 
 function NavbarComponent() {
+    const { user, setUser } = useUser();
     const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
@@ -33,15 +36,26 @@ function NavbarComponent() {
         return null
     }
 
+    const handleLogout = () => {
+        setUser(null)
+
+        localStorage.removeItem('token');
+        // router.push("/")
+    }
+
     return (
         <Navbar fluid className='px-0 py-4 pl-0 pr-0 lg:pl-0 lg:pr-0 border-b border-gray-100 mb-5'>
             <Link href="/">
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">NextJS Ecommerce App</span>
             </Link>
             <div className="flex md:order-2">
-                <Link href="/login">
-                    <Button color='gray'>Login</Button>
-                </Link>
+                {user ? (
+                    <Button color='gray' onClick={handleLogout}>Logout</Button>
+                ) : (
+                    <Link href="/login">
+                        <Button color='gray'>Login</Button>
+                    </Link>
+                )}
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
