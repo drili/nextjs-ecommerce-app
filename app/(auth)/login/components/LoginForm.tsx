@@ -33,6 +33,7 @@ function LoginForm() {
 
         const data = await response.json()
         localStorage.setItem("token", data.token)
+        localStorage.setItem("userData", JSON.stringify(data.user));
         setUser(data.user)
         router.push(`/dashboard/${data.user._id}`)
     }

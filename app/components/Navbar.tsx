@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Navbar } from 'flowbite-react';
+import { Button, Navbar, Dropdown, Avatar } from 'flowbite-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -50,7 +50,27 @@ function NavbarComponent() {
             </Link>
             <div className="flex md:order-2">
                 {user ? (
-                    <Button color='gray' onClick={handleLogout}>Logout</Button>
+                    <div>
+                        <span>
+                            <Dropdown
+                                arrowIcon={false}
+                                inline
+                                label={
+                                    <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                                }
+                            >
+                                <Dropdown.Header>
+                                    <span className="block text-sm">{user.userFirstName} {user.userLastName}</span>
+                                    <span className="block truncate text-sm font-medium">{user.email}</span>
+                                </Dropdown.Header>
+                                <Dropdown.Item>User Settings</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={handleLogout}>
+                                    Logout
+                                </Dropdown.Item>
+                            </Dropdown>
+                        </span>
+                    </div>
                 ) : (
                     <Link href="/login">
                         <Button color='gray'>Login</Button>

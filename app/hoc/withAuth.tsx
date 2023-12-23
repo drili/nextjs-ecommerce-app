@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 
 import { useUser } from "@/app/context/UserContex";
+import { useEffect } from "react";
 
 type WithAuthProps = {
     WrappedComponent: React.ComponentType<any>
@@ -11,8 +12,13 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         const router = useRouter();
         const { user } = useUser();
 
+        useEffect(() => {
+            if (!user) {
+                router.replace('/login');
+            }
+        }, [user, router]);
+
         if (!user) {
-            router.replace('/login');
             return null;
         }
 
