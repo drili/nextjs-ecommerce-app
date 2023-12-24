@@ -2,11 +2,14 @@
 - [x] Change to a different navbar when user is logged in
 - [x] Create logout functionality
 - [ ] Create a store modal: 
-    1. If user has not created a store, they will be prompted to create a store
-    2. URL and redirected will be /dashboard/{userid}/{storename}||{storeId}
-- [ ] Add store picker at navbar
-    1. The selected store should be active
-    2. Selected store should be saved on a state/localstorage, so the latest selected store is the current active store.
+    1. [x] If user has not created a store, they will be prompted to create a store
+    2. [x] URL and redirected will be /dashboard/
+    3. [x] Update user.activeStore
+- [x] Add store picker at navbar
+    1. [x] "Create new store" should be in the dropdown as an option.
+        1.a This should trigger the StoresModal
+    2. [x] The selected store should be active
+    3. [x] Selected store should be saved on a state/localstorage, so the latest selected store is the current active store.
 - [ ] Update "Store" model.
     1. Make sure storeName is unique
     2. Check if other properties should be added.

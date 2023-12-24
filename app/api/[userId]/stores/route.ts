@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 import { connectToDatabase } from "@/lib/mongodb";
-import { Store } from '@/models/Store';
+import { Stores } from '@/models/Stores';
 
 export async function GET(
     req: Request,
     { params }: { params: { userId: string } }
 ) {
     try {
-        const userId = params.userId
+        const userId = new ObjectId(params.userId)
         const db = await connectToDatabase()
-        const stores = await db.collection("store").find({ userId }).toArray()
+        const stores = await db.collection("stores").find({ userId }).toArray()
 
+        console.log({stores});
+        
         return NextResponse.json(stores)
     } catch (error) {
         return new NextResponse(JSON.stringify({ message: 'Internal Server Error' }), {
@@ -29,13 +32,13 @@ export async function POST(
 ) {
     try {
         const body = await req.json()
-        console.log({ body });
 
-        const userId = params.userId
+        const userId = new ObjectId(params.userId)
         const { storeName } = body
-
-        console.log({ userId, storeName });
-
+        const storeNameEscaped = storeName
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
 
         if (!storeName || !userId) {
             return new NextResponse(JSON.stringify({ message: 'Store name or User ID are missing' }), {
@@ -49,10 +52,16 @@ export async function POST(
         const db = await connectToDatabase()
         const newStore = {
             userId,
-            storeName
+            storeName,
+            storeNameEscaped,
         }
 
-        await db.collection("store").insertOne(newStore)
+        await db.collection("stores").insertOne(newStore)
+
+        await db.collection("users").updateOne(
+            { _id: userId },
+            { $set: { activeStore: storeNameEscaped } }
+        )
 
         return new NextResponse(JSON.stringify({
             message: "Store created successfully",

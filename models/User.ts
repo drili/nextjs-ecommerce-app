@@ -4,4 +4,5 @@ export interface User {
     userFirstName: string;
     userLastName: string;
     userImageURL?: string;
+    activeStoreId?: string;
 }

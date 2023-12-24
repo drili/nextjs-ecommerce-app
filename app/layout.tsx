@@ -10,6 +10,7 @@ import Container from '@/app/components/Container'
 import FooterComponent from '@/app/components/Footer'
 
 import { UserProvider } from '@/app/context/UserContex'
+import { StoresProvider } from '@/app/context/StoresContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,13 +28,15 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <UserProvider>
-                    <Container>
-                        <NavbarComponent />
-                        {children}
-                        <FooterComponent />
+                    <StoresProvider>
+                        <Container>
+                            <NavbarComponent />
+                            {children}
+                            <FooterComponent />
 
-                        <Toaster />
-                    </Container>
+                            <Toaster />
+                        </Container>
+                    </StoresProvider>
                 </UserProvider>
             </body>
         </html>

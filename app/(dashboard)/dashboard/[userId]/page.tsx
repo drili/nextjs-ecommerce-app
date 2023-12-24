@@ -29,13 +29,16 @@ const DashboardPage = ({
         <div id="page_DashboardPage">
             <div className="grid grid-cols-2 mb-10">
                 <section className="flex flex-col gap-4">
-                    <MainHeading title="Dashboard Page" />
+                    <MainHeading title="Dashboard Page Overview" />
                     <SubHeading description={`Welcome to your store, ${user.userFirstName}.`} />
                 </section>
             </div>
 
-            <HeaderBanner imageSize="small"  imageUrl={bannerImage} />
+            <HeaderBanner imageSize="small" imageUrl={bannerImage} />
 
+            <div>
+                Active Store: {user.activeStore}
+            </div>
         </div>
     );
 }

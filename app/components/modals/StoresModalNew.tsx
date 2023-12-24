@@ -6,19 +6,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useUser } from '@/app/context/UserContex';
+import { useStores } from '@/app/context/StoresContext';
 
 import SubHeading from '@/app/components/SubHeading';
 
-interface StoresModalProps {
+interface StoresModalNewProps {
     open: boolean;
     onClose: () => void;
 }
 
-const StoresModal: React.FC<StoresModalProps> = ({
+const StoresModalNew: React.FC<StoresModalNewProps> = ({
     open,
-    onClose 
+    onClose
 }) => {
     const { user, setUser, updateUser } = useUser();
+    const { stores, setStores } = useStores()
     const [storeName, setStoreName] = useState("")
     const router = useRouter()
 
@@ -52,13 +54,16 @@ const StoresModal: React.FC<StoresModalProps> = ({
             }
 
             const result = await response.json()
-            
+
             toast.success("Store created successfully.")
             onClose()
             setStoreName("")
 
             const storeNameEscaped = result.store.storeNameEscaped
+            const newStore = result.store
             updateUser({ activeStore: storeNameEscaped })
+            setStores([...stores, newStore])
+
             router.push(`/dashboard/${user._id}`)
         } catch (error) {
             toast.error("There was an error.")
@@ -67,27 +72,21 @@ const StoresModal: React.FC<StoresModalProps> = ({
     }
 
     return (
-        <div id='component_StoresModal'>
+        <div id='component_StoresModalNew'>
             <Modal show={open} onClose={onClose}>
-                <Modal.Body>
-                    <div className='flex justify-between items-center'>
-                        <SubHeading description='Create your first store here!' />
-                        <Button onClick={handleLogout} color='gray'>Signout</Button>
-                    </div>
-                    <hr className='mt-5' />
-                </Modal.Body>
+                <Modal.Header>
+                    <SubHeading description='Create a new store' />
+                </Modal.Header>
 
-                <Modal.Body className='pt-0'>
+                <Modal.Body className='pt-0 mt-5'>
                     <div className="space-y-6">
-                        <p className='text-md'>You must create a store to continue. Please fill out the form.</p>
-
                         <div>
                             <form className="flex flex-col gap-4" onSubmit={(event) => handleCreateStore(event)}>
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="storeName" value="Your store name" />
                                     </div>
-                                    <TextInput name='storeName' id="storeName" type="text" placeholder="Awesome Store" required 
+                                    <TextInput name='storeName' id="storeName" type="text" placeholder="Awesome Store" required
                                         value={storeName}
                                         onChange={(e) => setStoreName(e.target.value)}
                                     />
@@ -102,4 +101,4 @@ const StoresModal: React.FC<StoresModalProps> = ({
     );
 }
 
-export default StoresModal;
+export default StoresModalNew;
