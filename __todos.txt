@@ -1,3 +1,23 @@
-// TODO:
-- Change to a different navbar when user is logged in
-- Create logout functionality
+// TODO: 1.0
+- [x] Change to a different navbar when user is logged in
+- [x] Create logout functionality
+- [ ] Create a store modal: 
+    1. If user has not created a store, they will be prompted to create a store
+    2. URL and redirected will be /dashboard/{userid}/{storename}||{storeId}
+- [ ] Add store picker at navbar
+    1. The selected store should be active
+    2. Selected store should be saved on a state/localstorage, so the latest selected store is the current active store.
+- [ ] Update "Store" model.
+    1. Make sure storeName is unique
+    2. Check if other properties should be added.
+- [ ] Create a "SubscriptionPlan" model
+    1. Users will by default be on "free" plan.
+    2. Add different plan tiers:
+        2.a "free" | "basic" | "pro" | "pro+"
+
+// TODO: 2.0
+- [ ] Add Stripe
+    1. Add checkout to ecommerce frontend store
+        1.a Users can buy different items/products and checkout via Stripe
+    2. Add monthly Stripe plan to users for their "SubscriptionPlan"
+        2.a Users should alos be able to cancel subscription
