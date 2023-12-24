@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import SubHeading from '@/app/components/SubHeading';
 
 import { useUser } from '@/app/context/UserContex';
+import { toast } from 'react-hot-toast';
 
 function LoginForm() {
     const [email, setEmail] = useState('');
@@ -25,16 +26,20 @@ function LoginForm() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, password }),
-        })
+        })  
 
         if (!response.ok) {
+            toast.error("Credentials invalid.")
             throw new Error(`Error: ${response.status}`);
         }
 
         const data = await response.json()
+        
         localStorage.setItem("token", data.token)
-        localStorage.setItem("userData", JSON.stringify(data.user));
+        localStorage.setItem("userData", JSON.stringify(data.user))
+        localStorage.setItem("userStores", JSON.stringify(data.userStores))
         setUser(data.user)
+        
         router.push(`/dashboard/${data.user._id}`)
     }
 

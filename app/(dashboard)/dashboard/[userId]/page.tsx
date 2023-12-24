@@ -4,6 +4,11 @@ import { useRouter } from "next/navigation";
 
 import { useUser } from "@/app/context/UserContex";
 import withAuth from "@/app/hoc/withAuth";
+import MainHeading from "@/app/components/Heading";
+import SubHeading from "@/app/components/SubHeading";
+import HeaderBanner from "@/app/components/HeaderBanner";
+
+import bannerImage from '@/app/assets/images/pexels-pixabay-259200.jpg';
 
 const DashboardPage = ({
     params
@@ -21,9 +26,15 @@ const DashboardPage = ({
 
     return (
         <div id="page_DashboardPage">
-            <h1>Dashboard Page</h1>
+            <div className="grid grid-cols-2 mb-10">
+                <section className="flex flex-col gap-4">
+                    <MainHeading title="Dashboard Page" />
+                    <SubHeading description={`Welcome to your store, ${user.userFirstName}.`} />
+                </section>
+            </div>
 
-            <p>Hello {userId}</p>
+            <HeaderBanner imageSize="small"  imageUrl={bannerImage} />
+
         </div>
     );
 }
