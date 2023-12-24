@@ -29,8 +29,6 @@ export async function POST(
             { $set: { activeStore: activeStore } }
         )
 
-        console.log({ response });
-
         return new NextResponse(JSON.stringify({
             message: "activeStore updated successfully",
             store: response,
