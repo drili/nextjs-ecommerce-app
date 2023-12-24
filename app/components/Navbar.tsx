@@ -41,6 +41,7 @@ function NavbarComponent() {
 
         localStorage.removeItem('token');
         localStorage.removeItem("userData")
+        localStorage.removeItem("userStores")
         // router.push("/")
     }
 

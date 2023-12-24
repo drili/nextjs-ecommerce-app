@@ -26,6 +26,7 @@ export default function DashboardLayout({
             }
 
             const data = await response.json()
+            
             setStores(data)
         } catch (error) {
             console.error('Error fetching stores:', error);
@@ -40,19 +41,23 @@ export default function DashboardLayout({
         }
     }, [user])
 
-    useEffect(() => {
-        if (stores.length === 0) {
-            setOpenModal(true)
+    useEffect(() => {        
+        if (!isLoading) {
+            if (stores.length !== 0) {            
+                setOpenModal(false)
+            } else {
+                setOpenModal(true)
+            }
         }
-    }, [stores])
+    }, [stores, isLoading])
 
     return (
         <div id="pageLayout_DashboardLayout">
             {children}
-
+            
             <StoresModal 
                 open={openModal} 
-                // onClose={() => setOpenModal(false)} 
+                onClose={() => setOpenModal(false)} 
             />
         </div>
     )

@@ -10,15 +10,15 @@ type WithAuthProps = {
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     const WithAuthComponent: React.FC = (props) => {
         const router = useRouter();
-        const { user } = useUser();
+        const { user, loading } = useUser();
 
         useEffect(() => {
-            if (!user) {
+            if (!loading && !user) {
                 router.replace('/login');
             }
-        }, [user, router]);
+        }, [user, router, loading]);
 
-        if (!user) {
+        if (loading || !user) {
             return null;
         }
 

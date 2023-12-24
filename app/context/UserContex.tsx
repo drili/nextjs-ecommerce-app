@@ -9,16 +9,18 @@ interface UserProviderProps {
 interface UserContextProps {
     user: any;
     setUser: React.Dispatch<React.SetStateAction<any>>;
+    loading: boolean;
 }
 
 export const UserContext = createContext<UserContextProps>({
     user: null,
-    setUser: () => { }
+    setUser: () => { },
+    loading: true,
 });
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<any>(null);
-
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -26,11 +28,13 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             if (storedUserData) {
                 setUser(JSON.parse(storedUserData));
             }
+
+            setLoading(false);
         }
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, loading }}>
             {children}
         </UserContext.Provider>
     );
